@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JsonDiff</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>JsonDiff</h1>
+            <p class="lead">Try it in the browser thanks to GopherJS!</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <textarea style="font-family:monospace;" class="form-control" rows="10" id="jsonLeft"></textarea>
+            </div>
+            <div class="col-md-6">
+                <textarea style="font-family:monospace;" class="form-control" rows="10" id="jsonRight"></textarea>
+            </div>
+        </div>
+        <p>
+            <div class="form-inline">
+                <button type="button" class="btn btn-default" id="buttonCompare">Compare</button>
+                <button type="button" class="btn btn-default" id="buttonSwap">Swap</button>
+                <button type="button" class="btn btn-default" id="buttonClear">Clear</button>
+                &nbsp;
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="checkType"> Append type
+                </label>
+            </div>
+        </p>
+        <p>
+            <input class="form-control" type="text" id="resultDiff" readonly>
+            <pre id="resultText"></pre>
+        </p>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="webdemo.js"></script>
+</body>
+</html>
