@@ -64,7 +64,13 @@ var save= function(){
         'Content-Type': 'application/json'
         }
 	}).then(res => res.json())
-    .then(function(response){window.location.href = response.url})
+        .then(function(response){
+            if ( response.result == 'success' ) {
+                window.location.href = response.url
+            } else if ( response.result == 'failure' ) {
+                alert(response.msg);
+            }
+        })
 	.catch(error => console.error('Error:', error));
 }
 </script>
