@@ -28,10 +28,23 @@
       width: 98%;
         height:98vh;
     }
+.head{
+    width:98%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.head a {
+font-size:1.2rem;
+text-decoration:none;
+}
   </style>
 </head>
 <body>
-<div><h1><?php echo $_GET['name'];?></h1></div>
+<div class=head>
+<h1><?php echo $_GET['name'];?></h1>
+<a href='index.php' target=_self>index&#9166;</a>
+</div>
 <div id="jsoneditor"></div>
 <script>
   var container = document.getElementById('jsoneditor');

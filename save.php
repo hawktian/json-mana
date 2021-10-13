@@ -3,12 +3,16 @@ header('Content-Type: application/json');
 $res = [];
 $res['result'] = 'failure';
 $res['msg'] = '保存失败';
-if ( false !== strstr($_GET['name'], '/') ) {
+
+$name = $_GET['name'];
+
+if ( false !== strstr($name, '/') ) {
     $res['msg'] = 'file name contain slash was forbidden';
-    goto END;
+    $name = trim($name, '/');
+    $name = str_replace('/', '-', $name);
 }
 
-$name = $_GET['name']?:time().uniqid();
+$name = $name?:time().uniqid();
 $http_body = file_get_contents('php://input');
 if ( !file_exists('./tmp') ) {
     mkdir('./tmp', 0700);

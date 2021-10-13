@@ -6,7 +6,7 @@
     </head>
     <body>
 
-<p><a href='editor.php' />editor</a></p>
+<p><a href='editor.php' target=_blank />editor</a></p>
 
 <h2>JSON </h2>
 
