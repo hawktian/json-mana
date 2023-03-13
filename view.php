@@ -20,46 +20,51 @@
       background-color: #f5f5f5;
     }
 
-    h1 {
+    .title_input{
         font-size: 18px;
+        line-height: 30px;
+        width:500px;
+    }
+
+    .head{
+        width:98%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .head a {
+        font-size:1.2rem;
+        text-decoration:none;
     }
 
     #jsoneditor {
       width: 98%;
         height:98vh;
     }
-.head{
-    width:98%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.head a {
-font-size:1.2rem;
-text-decoration:none;
-}
+
+
   </style>
 </head>
 <body>
 <div class=head>
-<h1><?php echo $_GET['name'];?></h1>
+<h1 id=title><?php echo $_GET['name'];?></h1>
 <a href='index.php' target=_self>index&#9166;</a>
 </div>
 <div id="jsoneditor"></div>
 <script>
-  var container = document.getElementById('jsoneditor');
+var container = document.getElementById('jsoneditor');
 
-  var options = {
-    mode: 'code',
+var options = {
+mode: 'code',
     modes: ['code', 'form', 'text', 'tree', 'view'], // allowed modes
     onError: function (err) {
-      alert(err.toString());
+        alert(err.toString());
     },
     onModeChange: function (newMode, oldMode) {
-      console.log('Mode switched from', oldMode, 'to', newMode);
+        console.log('Mode switched from', oldMode, 'to', newMode);
     }
-  };
-
+};
 <?php
 if ( $_GET['name'] ) {
     $json = file_get_contents('./tmp/'.$_GET['name']);
@@ -68,8 +73,34 @@ if ( $_GET['name'] ) {
 }
 ?>
 
-  var json = <?php echo $json; ?>;
-  var editor = new JSONEditor(container, options, json);
+var name = '<?php echo $_GET['name']; ?>';
+var json = <?php echo $json; ?>;
+var editor = new JSONEditor(container, options, json);
+
+document.getElementById('title').ondblclick = function() {
+    this.innerHTML = "<input class=title_input id='title_input' onblur=rename() type=text value='"+this.innerText+"'>";
+    document.getElementById('title_input').focus();
+    document.getElementById('title_input').addEventListener("keyup", ({key}) => {
+        if (key === "Enter") {
+            rename();
+        }
+    });
+}
+
+let rename= function(){
+    var newname = document.getElementById('title_input').value;
+	var url = 'rename.php?oldname='+name+'&newname='+newname;
+	fetch(url, {
+        method: 'GET',
+	}).then(res => res.json())
+        .then(function(response){
+            if ( response.result == 'success' ) {
+                window.location.href = '/view.php?name='+newname;
+            } else if ( response.result == 'failure' ) {
+                alert(response.msg);
+            }
+        }).catch(error => console.error('Error:', error));
+}
 </script>
 </body>
 </html>

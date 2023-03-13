@@ -5,22 +5,26 @@
     <title></title>
     </head>
     <body>
-
-<p><a href='editor.php' target=_blank />editor</a></p>
-
-<h2>JSON </h2>
+    <p><a href='editor.php' target=_blank />editor</a></p>
 
 <?php
 $path = dirname(__FILE__).'/tmp/';
+$files = [];
 foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $file) {
     if (!$file->isDir()) {
-        echo '<p>';
-        echo '<a href="./view.php?name='.$file->getFilename().'" target=_blank>'.$file->getFilename().'</a>';
-        echo '&nbsp;&nbsp;&nbsp;';
-        echo '<a href="./delete.php?name='.$file->getFilename().'" target=_self>删除</a>';
-        echo '</p>';
+        $files[$file->getCTime()] = $file;
     }
 }
+krsort($files);
+foreach ( $files ?? [] as $file) {
+    echo '<p>';
+    echo '<a href="./view.php?name='.$file->getFilename().'" target=_blank>'.$file->getFilename().'</a>';
+    echo '&nbsp;&nbsp;&nbsp;';
+    echo '<a href="./delete.php?name='.$file->getFilename().'" target=_self>删除</a>';
+    echo '</p>';
+}
+
+
 ?>
 </body>
 </html>
